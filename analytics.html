@@ -1,0 +1,117 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="ru">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8" />-->
+<!--    <meta name="viewport" content="width=device-width, maximum-scale=5.0" />-->
+<!--    <title>exSpark - Analytics</title>-->
+
+<!--    &lt;!&ndash; Общие стили (styles.css) &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="styles.css" />-->
+<!--    &lt;!&ndash; Иконки Material Symbols &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />-->
+<!--    &lt;!&ndash; Chart.js &ndash;&gt;-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="analytics-page">-->
+<!--    <header>-->
+<!--        <div class="brand">exSpark - Аналитика</div>-->
+<!--    </header>-->
+
+<!--    <main style="max-width: 900px; margin: 0 auto;">-->
+<!--        &lt;!&ndash; Кнопка возврата на главную страницу &ndash;&gt;-->
+<!--        <button class="back-button" id="goBackButton" style="margin-bottom: 20px;">-->
+<!--            <span class="material-symbols-outlined">arrow_back</span>-->
+<!--            Вернуться-->
+<!--        </button>-->
+
+<!--        &lt;!&ndash; Блок с дополнительной информацией о сессиях &ndash;&gt;-->
+<!--        <section class="section" id="sessionInfoSection">-->
+<!--            <h2>Session Info</h2>-->
+<!--            <table id="sessionInfoTable">-->
+<!--                <tbody>-->
+<!--                &lt;!&ndash; При одной сессии: подробная инфа, при нескольких — список &ndash;&gt;-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--        </section>-->
+
+<!--        &lt;!&ndash; Контейнер для радарной диаграммы &ndash;&gt;-->
+<!--        <section class="section chart-container">-->
+<!--            <h2>Эффектная визуализация данных</h2>-->
+<!--            <p style="margin-bottom: 10px;">-->
+<!--                Ниже представлена радарная диаграмма, отображающая ключевые показатели-->
+<!--                (Distance, Duration, Pace, Heart Rate, Calories, Elevation) для каждой сессии.-->
+<!--            </p>-->
+<!--            <div class="chart-wrapper">-->
+<!--                <canvas id="dataChart"></canvas>-->
+<!--            </div>-->
+<!--        </section>-->
+<!--    </main>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Подключаем наш скрипт аналитики &ndash;&gt;-->
+<!--<script src="analytics.js"></script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=5.0" />
+    <title>exSpark - Analytics</title>
+
+    <!-- Подключаем CSS для Analytics -->
+    <link rel="stylesheet" href="analytics.css" />
+
+    <!-- Иконки Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+    <!-- Chart.js (для радарной диаграммы) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="analytics-page">
+    <header>
+        <div class="brand">exSpark - Аналитика</div>
+    </header>
+
+    <main>
+        <!-- Кнопка «Вернуться на главную страницу» -->
+        <button class="back-button" id="goBackButton">
+            <span class="material-symbols-outlined">arrow_back</span>
+            Вернуться
+        </button>
+
+        <!-- Информация о сессиях -->
+        <section class="section" id="sessionInfoSection">
+            <h2>Session Info</h2>
+            <table id="sessionInfoTable">
+                <tbody>
+                <!-- Динамически вставляем инфу о сессии(ях) -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Диаграмма -->
+        <section class="section chart-container">
+            <!-- Заголовок диаграммы (сдвигается немного вправо в CSS) -->
+            <div class="chart-title-right">Эффектная визуализация данных</div>
+
+            <p style="margin-bottom: 10px;">
+                Ниже представлена радарная диаграмма, отображающая ключевые показатели
+                (Distance, Duration, Pace, Heart Rate, Calories, Elevation) для каждой сессии.
+            </p>
+
+            <div class="chart-wrapper">
+                <canvas id="dataChart"></canvas>
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- Подключаем логику Analytics -->
+<script src="analytics.js"></script>
+</body>
+</html>
