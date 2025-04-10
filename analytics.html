@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <!-- Основные метаданные страницы -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, maximum-scale=5.0" />
+  <title>exSpark - Analytics</title>
+
+  <!-- Подключение CSS для страницы аналитики -->
+  <link rel="stylesheet" href="analytics.css" />
+
+  <!-- Подключение иконок Material Symbols -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+  <!-- Подключение Chart.js для построения диаграмм -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<!-- Основной контейнер страницы аналитики -->
+<div class="analytics-page">
+  <main>
+    <!-- Шапка страницы -->
+    <header>
+      <div class="header-left">
+        <!-- Кнопка "Вернуться" для возврата на главную страницу -->
+        <button class="back-button" id="goBackButton">
+          <span class="material-symbols-outlined">arrow_back</span>
+          Return
+        </button>
+        <!-- Логотип или название страницы -->
+        <div class="brand">exSpark - Analytics</div>
+      </div>
+      <div class="header-buttons">
+        <!-- Кнопка для открытия панели фильтров -->
+        <button id="openFilterBtn" class="filter-button">
+          <span class="material-symbols-outlined">filter_alt</span>
+          Filter
+        </button>
+
+        <!-- Блок для отображения активных фильтров (скрыт по умолчанию) -->
+        <div id="activeFiltersDisplay" style="display:none;"></div>
+
+        <!-- Блок выбора периода для фильтрации по дате (пример из daysButton) -->
+        <div class="days-container">
+          <button class="days-button" id="daysButton">
+            <span class="days-button-text">All dates</span>
+            <span class="material-symbols-outlined">expand_more</span>
+          </button>
+          <!-- Выпадающее меню с вариантами периода -->
+          <div class="days-menu" id="daysMenu">
+            <ul>
+              <li data-value="5 days">
+                <span class="dot"></span>
+                <span class="option-text">5 days</span>
+              </li>
+              <li data-value="10 days">
+                <span class="dot"></span>
+                <span class="option-text">10 days</span>
+              </li>
+              <li data-value="2 weeks">
+                <span class="dot"></span>
+                <span class="option-text">2 weeks</span>
+              </li>
+              <li data-value="1 month">
+                <span class="dot"></span>
+                <span class="option-text">1 month</span>
+              </li>
+              <li data-value="All dates">
+                <span class="dot"></span>
+                <span class="option-text">All dates</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Контейнер для диаграмм -->
+    <div class="charts-container">
+      <!-- Раздел с радарной диаграммой (с кастомной легендой) -->
+      <section class="section chart-container">
+        <h2 class="chart-title-left">Analysis of key parameters</h2>
+        <div class="chart-wrapper chart-flex">
+          <!-- Canvas для радарной диаграммы -->
+          <div class="canvas-container">
+            <canvas id="dataChart"></canvas>
+          </div>
+          <!-- Кастомная легенда сбоку -->
+          <div id="customLegend" class="legend-scroll legend-right"></div>
+        </div>
+      </section>
+
+      <!-- Раздел со столбчатой диаграммой -->
+      <section class="section chart-container">
+        <h2 class="chart-title-left">Metrics by day</h2>
+
+        <!-- Абсолютно позиционированный контейнер в правом верхнем углу -->
+        <div id="metricContainer" class="metric-container">
+          <!-- Кнопка, как "All dates" -->
+          <button class="metric-button" id="metricButton">
+            <span class="metric-button-text">Distance (km)</span>
+            <span class="material-symbols-outlined">expand_more</span>
+          </button>
+          <!-- Выпадающее меню -->
+          <div class="metric-menu" id="metricMenu">
+            <ul>
+              <li data-value="distance">
+                <span class="dot"></span>
+                <span class="option-text">Distance (km)</span>
+              </li>
+              <li data-value="duration">
+                <span class="dot"></span>
+                <span class="option-text">Duration (min)</span>
+              </li>
+              <li data-value="pace">
+                <span class="dot"></span>
+                <span class="option-text">Pace (min/km)</span>
+              </li>
+              <li data-value="heartRate">
+                <span class="dot"></span>
+                <span class="option-text">Heart Rate (bpm)</span>
+              </li>
+              <li data-value="calories">
+                <span class="dot"></span>
+                <span class="option-text">Calories</span>
+              </li>
+              <li data-value="elevation">
+                <span class="dot"></span>
+                <span class="option-text">Elevation (m)</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Canvas для столбчатой диаграммы -->
+        <div class="chart-wrapper">
+          <canvas id="distanceChart"></canvas>
+        </div>
+      </section>
+    </div>
+
+    <!-- Раздел с информацией о сессиях -->
+    <section class="section session-info">
+      <h2>Session Info</h2>
+      <table id="sessionInfoTable">
+        <tbody>
+        <!-- Данные о сессиях будут динамически добавляться сюда -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>
+
+<!-- Оверлей для затемнения фона при открытии панели фильтров -->
+<div id="overlay" class="overlay"></div>
+
+<!-- Боковая панель с фильтрами -->
+<div id="filterDrawer" class="filter-drawer">
+  <div class="drawer-header">
+    <h2>Filters</h2>
+    <!-- Кнопка закрытия панели фильтров -->
+    <button id="closeFilterBtn" class="close-btn">&times;</button>
+  </div>
+
+  <!-- Аккордеон с числовыми фильтрами (пример) -->
+  <div class="accordion">
+    <!-- Distance (km) -->
+    <div class="accordion-item">
+      <button class="accordion-toggle">+ Distance (km)</button>
+      <div class="accordion-content">
+        <label>From: <input type="number" id="distanceMin" /></label><br/>
+        <label>To: <input type="number" id="distanceMax" /></label><br/>
+      </div>
+    </div>
+    <!-- Duration (s) -->
+    <div class="accordion-item">
+      <button class="accordion-toggle">+ Duration (s)</button>
+      <div class="accordion-content">
+        <label>From: <input type="number" id="durationMin" /></label><br/>
+        <label>To: <input type="number" id="durationMax" /></label>
+      </div>
+    </div>
+    <!-- Pace (min/km) -->
+    <div class="accordion-item">
+      <button class="accordion-toggle">+ Pace (min/km)</button>
+      <div class="accordion-content">
+        <label>From: <input type="number" id="paceMin" /></label><br/>
+        <label>To: <input type="number" id="paceMax" /></label>
+      </div>
+    </div>
+    <!-- Heart Rate (bpm) -->
+    <div class="accordion-item">
+      <button class="accordion-toggle">+ Heart Rate (bpm)</button>
+      <div class="accordion-content">
+        <label>From: <input type="number" id="heartRateMin" /></label><br/>
+        <label>To: <input type="number" id="heartRateMax" /></label>
+      </div>
+    </div>
+    <!-- Calories -->
+    <div class="accordion-item">
+      <button class="accordion-toggle">+ Calories</button>
+      <div class="accordion-content">
+        <label>From: <input type="number" id="caloriesMin" /></label><br/>
+        <label>To: <input type="number" id="caloriesMax" /></label>
+      </div>
+    </div>
+    <!-- Elevation (m) -->
+    <div class="accordion-item">
+      <button class="accordion-toggle">+ Elevation (m)</button>
+      <div class="accordion-content">
+        <label>From: <input type="number" id="elevationMin" /></label><br/>
+        <label>To: <input type="number" id="elevationMax" /></label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Кнопки управления фильтрами -->
+  <button class="apply-btn" id="resetFiltersBtn">Reset filter</button>
+  <button class="apply-btn" id="applyFiltersBtn">Apply filter</button>
+</div>
+
+<!-- Подключение JS-файлов -->
+<script src="charts.js"></script>
+<script src="analytic.js"></script>
+
+
+</body>
+</html>

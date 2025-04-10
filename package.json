@@ -8,7 +8,7 @@
   "keywords": [],
   "author": "John <ifdeifde@gmail.com>",
   "license": "ISC",
-  "description": "",
+  "description": "Term project \"Data tokenization\".   Functionality:  1. Connect to MetaMask   2. Upload user JSON data to IPFS   3. Encrypt IPFS Hash from the previous step with AES key   4. Ecnrypt AES key with MetaMask public key   5. Store encrypted IPFS Hash and AES key on the blockchain   6. Retrieve user's encrypted IPFS Hash and AES key from the blockchain   7. Decrypt AES key with MetaMask private key   8. Decrypt IPFS Hash from the previous step with decrypted AES key   9. Retrieve the stored JSON data   10. Display all the steps on the page",
   "dependencies": {
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
@@ -59,5 +59,17 @@
     "ts-node": "^10.9.2",
     "typechain": "^8.3.0",
     "typescript": "^5.7.2"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ifde/Tokenization.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ifde/Tokenization/issues"
+  },
+  "homepage": "https://github.com/ifde/Tokenization#readme"
 }

@@ -1,38 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MetaMask Encryption</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, maximum-scale=5.0" />
+  <meta name="description" content="exSpark - application for data uploading and blockchain" />
+  <title>exSpark</title>
+
+  <!-- Иконки Material Symbols -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <!-- Подключаем наши стили -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div id="account-info"></div>
-  <button id="connect">Connect to MetaMask</button>
-  <div class="file-options">
-    <input type="file" id="fileInput" accept=".json" />
-    <span>OR</span>
-    <button id="defaultButton">Choose Default</button>
+<div id="webcrumbs">
+  <header>
+    <div class="brand">exSpark</div>
+    <button id="connectButton" class="metamask-button">
+      <span class="material-symbols-outlined">account_balance_wallet</span>
+      <span id="connectText">Connect Wallet</span>
+    </button>
+  </header>
+
+  <!-- Экран загрузки, по умолчанию скрыт -->
+  <div class="loading-screen" id="loadingScreen" style="display:none;">
+    <div class="spinner"></div>
+    <p>Uploading data...</p>
   </div>
-  <button id="uploadButton" disabled>Upload Data</button>
-  <button id="retrieveButton" disabled>Retrieve Data</button>
-  <button id="updateDataButton" disabled>Update Data Entry</button>
-  <button id="listUsersButton">List All Users</button>
-  <button id="ClearCurrentUserDataButton">Clear Current User Data</button>
-  <div id="uploadValues" style="display: none;"></div>
-  <!-- Just to have a space -->
-  <progress id="blank" value="0" max="100" style="display: none;"></progress>
-  <div id="retrieveValues" style="display: none;"></div>
-  <progress id="progressBar" value="0" max="100" style="display: none;"></progress>
-  <div id="output">
-    <h3>Data to upload</h3>
-    <pre id="jsonOutput" style="display: none;"></pre>
-    <h3>Retrieved data</h3>
-    <pre id="retrievedOutput" style="display: none;"></pre>
-    <h3>All Users</h3>
-    <pre id="allUsersOutput" style="display: none;"></pre>
+
+  <div class="main-content">
+    <nav class="sidebar">
+      <!-- Кнопки для загрузки / выгрузки JSON -->
+      <div class="sidebar-btn" id="btnBrowse">
+        <span class="material-symbols-outlined">upload_file</span>
+        <div class="sidebar-btn-label">Upload from file</div>
+      </div>
+      <div class="sidebar-btn" id="btnUseDefault">
+        <span class="material-symbols-outlined">token</span>
+        <div class="sidebar-btn-label">Test data</div>
+      </div>
+      <div class="sidebar-btn" id="btnClearData">
+        <span class="material-symbols-outlined">clear</span>
+        <div class="sidebar-btn-label">Clear data</div>
+      </div>
+
+      <!-- Кнопки для перехода к аналитике (если вам нужно) -->
+      <div class="sidebar-btn" id="btnAnalytics">
+        <span class="material-symbols-outlined">bar_chart</span>
+        <div class="sidebar-btn-label">Towards analytics</div>
+      </div>
+
+      <!-- Кнопки, соответствующие логике из первого проекта -->
+      <div class="sidebar-btn" id="btnUploadToChain">
+        <span class="material-symbols-outlined">cloud_upload</span>
+        <div class="sidebar-btn-label">Upload to Chain</div>
+      </div>
+      <div class="sidebar-btn" id="btnRetrieveFromChain">
+        <span class="material-symbols-outlined">cloud_download</span>
+        <div class="sidebar-btn-label">Unload from Chain</div>
+      </div>
+      <div class="sidebar-btn" id="btnListUsers">
+        <span class="material-symbols-outlined">download</span>
+        <div class="sidebar-btn-label">Unload all data from Chain</div>
+      </div>
+      <div class="sidebar-btn" id="btnClearUserData">
+        <span class="material-symbols-outlined">delete</span>
+        <div class="sidebar-btn-label">Clear My Data</div>
+      </div>
+    </nav>
+
+    <main>
+      <div class="upload-section">
+        <h2>Data to Upload</h2>
+        <div id="dropzone">Drag and drop the data file (JSON) here</div>
+        <textarea id="dataInput" placeholder="JSON-data..."></textarea>
+      </div>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>Uploaded data</h2>
+          <button class="action-button" id="exportButton">
+            <span class="material-symbols-outlined">download</span>
+            Export
+          </button>
+        </div>
+        <table>
+          <thead>
+          <tr>
+            <th>Session ID</th>
+            <th>Details</th>
+          </tr>
+          </thead>
+          <tbody id="dataTable"></tbody>
+        </table>
+      </section>
+    </main>
   </div>
-  <!-- Including the bundle file with all the JavaScript code from main.js -->
-  <script src="dist/bundle.js"></script>
+</div>
+
+<!-- Подключаем наш сгенерированный бандл -->
+<script src="dist/bundle.js"></script>
 </body>
 </html>

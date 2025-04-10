@@ -1,0 +1,686 @@
+/* ================================ */
+/*       Сброс и базовые стили      */
+/* ================================ */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+.brand {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* ================================ */
+/*          Шапка страницы          */
+/* ================================ */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-bottom: 1px solid #dee2e6;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.chart-title-left {
+    text-align: left;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ================================ */
+/*         Стили кнопок            */
+/* ================================ */
+
+.filter-button,
+.dropdown-button,
+.back-button,
+.days-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    background: #e9ecef;
+    color: #333;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-height: 50px;
+}
+
+.back-button {
+    max-width: 140px;
+}
+
+.filter-button:hover,
+.dropdown-button:hover,
+.back-button:hover,
+.days-button:hover {
+    background: #dee2e6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+.filter-button:active,
+.dropdown-button:active,
+.back-button:active,
+.days-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.filter-button .material-symbols-outlined,
+.dropdown-button .material-symbols-outlined,
+.back-button .material-symbols-outlined,
+.days-button .material-symbols-outlined {
+    font-size: 22px;
+    color: #333;
+}
+
+/* ================================ */
+/*      Экран загрузки и спиннер    */
+/* ================================ */
+
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #ccc;
+    border-top: 5px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ================================ */
+/*       Основное содержимое        */
+/* ================================ */
+
+.analytics-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#sessionInfoSection {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+}
+#sessionInfoSection h2 {
+    margin-bottom: 12px;
+}
+#sessionInfoTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+#sessionInfoTable th,
+#sessionInfoTable td {
+    padding: 10px;
+    border-bottom: 1px solid #dee2e6;
+}
+#sessionInfoTable th {
+    background: #f8f9fa;
+}
+
+/* ================================ */
+/*       Графики и диаграммы        */
+/* ================================ */
+
+.chart-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    position: relative;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.chart-title-right {
+    display: block;
+    text-align: right;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.chart-wrapper {
+    width: 700px;
+    height: 400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.charts-container {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.chart-container {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.chart-wrapper {
+    width: 100%;
+    height: 400px;
+}
+
+.session-info {
+    grid-column: span 2;
+    background: white;
+    text-align: left;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+
+/* ================================ */
+/*      Выпадающие меню (Dropdown)  */
+/* ================================ */
+
+/* ----- Меню для кнопки Filter (старое) ----- */
+
+/* ================================ */
+/*           Боковая панель         */
+/* ================================ */
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 10;
+}
+.overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.filter-drawer {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 320px;
+    background: #fff;
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.15);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px 0 0 12px;
+}
+.filter-drawer.active {
+    transform: translateX(0);
+}
+
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #f7f7f7, #f1f1f1);
+    padding: 16px;
+    border-bottom: 1px solid #dee2e6;
+    border-radius: 12px 0 0 0;
+}
+.drawer-header h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+}
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+    transition: color 0.3s ease;
+}
+.close-btn:hover {
+    color: #007bff;
+}
+
+.accordion {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+}
+.accordion-item {
+    margin-bottom: 12px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 8px;
+}
+.accordion-toggle {
+    background: none;
+    border: none;
+    font-size: 16px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    padding: 8px 0;
+    outline: none;
+    color: #333;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+.accordion-toggle:hover {
+    color: #007bff;
+}
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    padding-left: 10px;
+}
+.accordion-content.open {
+    opacity: 1;
+    max-height: 300px;
+}
+
+.accordion-content input[type="number"] {
+    width: 80px;
+    padding: 6px;
+    margin: 4px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.nice-checkbox {
+    position: relative;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 6px;
+}
+.nice-checkbox input[type="checkbox"] {
+    margin-right: 8px;
+    transform: scale(1.2);
+}
+
+#resetFiltersBtn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 8px;
+    border: none;
+    background: #e0e0e0;
+    color: #333;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    text-align: center;
+}
+
+#resetFiltersBtn:hover {
+    background: #ccc;
+    transform: translateY(-2px);
+}
+
+#applyFiltersBtn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    background: #007bff;
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    text-align: center;
+}
+
+#applyFiltersBtn:hover {
+    background: #0056c1;
+    transform: translateY(-2px);
+}
+
+/* ================================ */
+/*       Выпадающее меню "Days"     */
+/* ================================ */
+
+.days-container {
+    position: relative;
+    display: inline-block;
+}
+
+.days-menu {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    background: #e9ecef;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 12px 24px;
+    width: 200px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+.days-menu.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.days-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.days-menu li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #dee2e6;
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+}
+.days-menu li:last-child {
+    border-bottom: none;
+}
+
+.days-menu .dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid #333;
+    margin-right: 10px;
+}
+.days-menu li.selected .dot {
+    background: #333;
+}
+
+/* ================================ */
+/*       Дополнительные контейнеры */
+/* ================================ */
+
+.container {
+    padding: 20px;
+}
+.filter-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #e9ecef;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #ddd;
+    outline: none;
+    transition: background 0.3s ease;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #007bff;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+    background: #0056c1;
+}
+
+.legend-scroll {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 8px;
+    margin-top: 10px;
+    border-radius: 6px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 6px;
+}
+
+.legend-box {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+    border-radius: 2px;
+}
+
+.legend-text {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Делаем .chart-wrapper флекс-контейнером */
+.chart-wrapper.chart-flex {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    height: auto;
+}
+
+/* Контейнер под сам canvas — задаём ширину меньше 100%,
+   чтобы легенда влезла. */
+.canvas-container {
+    flex: 0 0 auto;
+    width: 60%;
+    min-width: 300px;
+}
+
+/* Для легенды справа пусть будет фиксированная или
+   оставшаяся ширина. Можно задать flex: 1 или width. */
+.legend-right {
+    flex: 1;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* ----------------------------
+   Расположение кнопки/меню
+   в правом верхнем углу
+----------------------------- */
+.metric-container {
+    position: absolute;
+    top: 10px;       /* отступ от верхнего края .chart-container */
+    right: 20px;     /* отступ от правого края */
+    z-index: 2;      /* чтобы меню было над графиком */
+}
+
+/* ----------------------------
+   Стили самой кнопки
+----------------------------- */
+.metric-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    background: #e9ecef;
+    color: #333;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-height: 50px; /* как в days-button */
+    outline: none;
+}
+.metric-button:hover {
+    background: #dee2e6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+.metric-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+.metric-button .material-symbols-outlined {
+    font-size: 22px;
+    color: #333;
+}
+.metric-button-text {
+    /* чтобы текст и иконка не налазили друг на друга при разном размере */
+    line-height: 1;
+}
+
+/* Кнопка с классом .rotated будет вращать стрелку */
+.metric-button.rotated .material-symbols-outlined {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
+/* ----------------------------
+   Выпадающее меню
+----------------------------- */
+.metric-menu {
+    position: absolute;
+    top: calc(100% + 5px);  /* чуть ниже кнопки */
+    right: 0;
+    background: #e9ecef;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 12px 24px;
+    width: 200px;
+
+    /* Анимация: закрытое состояние */
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+/* Когда меню активно, оно развёрнуто */
+.metric-menu.active {
+    max-height: 300px; /* или auto, если не очень большой список */
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Список вариантов */
+.metric-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.metric-menu li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #dee2e6;
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+}
+.metric-menu li:last-child {
+    border-bottom: none;
+}
+
+/* Метка (точка) слева, как в days-menu */
+.metric-menu .dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid #333;
+    margin-right: 10px;
+}
+
+/* Если хотим пометить выбранный пункт */
+.metric-menu li.selected .dot {
+    background: #333;
+}
+
+/* Hover-эффект */
+.metric-menu li:hover {
+    background: #dee2e6;
+}
+
+
+
